@@ -33,7 +33,7 @@ const SmartWateringSystem = () => {
     const interval = setInterval(() => {
       postMoistureToFirebase(moisture);
       setPostData(!postData);
-    }, 5000); // Send data every 5 seconds
+    }, 2700000); // Send data every 45 minutes
 
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
