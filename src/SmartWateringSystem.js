@@ -69,7 +69,7 @@ const SmartWateringSystem = () => {
   return (
     <div>
       <h1>Smart Watering System</h1>
-      <p>Moisture Level: {moisture}</p>
+      <p>Moisture Level: {moisture}%</p>
       <p>Relay State: {relayState}</p>
       <button onClick={handlePumpToggle}>Toggle Pump</button>
     </div>
