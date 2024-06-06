@@ -48,7 +48,7 @@ const SmartWateringSystem = () => {
     const interval = setInterval(() => {
       postMoistureToFirebase(moisture);
       setPostData(!postData);
-    }, 2700000); // Send data every 45 minutes
+    }, 5000); // Send data every 45 minutes
 
     return () => clearInterval(interval);
   }, [postData, moisture]);
