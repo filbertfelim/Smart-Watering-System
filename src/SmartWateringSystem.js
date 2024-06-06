@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import client from "./mqttService";
 import { database } from "./firebase";
-import { push, ref, set, onValue } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import Typography from "@mui/joy/Typography";
 import CircularProgress from "@mui/joy/CircularProgress";
 import { Box } from "@mui/system";
@@ -13,7 +13,6 @@ const MQTT_TOPIC_RELAY = "smart/watering/relay";
 const SmartWateringSystem = () => {
   const [moisture, setMoisture] = useState(20);
   const [relayState, setRelayState] = useState("OFF");
-  const [postData, setPostData] = useState(false);
   const [data, setData] = useState([]);
   const [chartData, setChartData] = useState([]);
   const [labels, setLabels] = useState([]);
@@ -44,38 +43,38 @@ const SmartWateringSystem = () => {
     };
   }, []);
 
-  const postMoistureToFirebase = (moisture) => {
-    if (moisture === null) {
-      console.log("No moisture");
-      return;
-    }
-    const timestamp = new Date().toISOString();
+  // const postMoistureToFirebase = (moisture) => {
+  //   if (moisture === null) {
+  //     console.log("No moisture");
+  //     return;
+  //   }
+  //   const timestamp = new Date().toISOString();
 
-    const dataRef = ref(database, "moistureData");
-    const newDataRef = push(dataRef);
-    set(newDataRef, {
-      datetime: timestamp,
-      level: moisture,
-    })
-      .then(() => {
-        console.log("Posted moisture data to Firebase:", {
-          datetime: timestamp,
-          level: moisture,
-        });
-      })
-      .catch((error) => {
-        console.error("Error posting to Firebase:", error);
-      });
-  };
+  //   const dataRef = ref(database, "moistureData");
+  //   const newDataRef = push(dataRef);
+  //   set(newDataRef, {
+  //     datetime: timestamp,
+  //     level: moisture,
+  //   })
+  //     .then(() => {
+  //       console.log("Posted moisture data to Firebase:", {
+  //         datetime: timestamp,
+  //         level: moisture,
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error posting to Firebase:", error);
+  //     });
+  // };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      postMoistureToFirebase(moisture);
-      setPostData(!postData);
-    }, 5000); // Send data every 45 minutes
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     postMoistureToFirebase(moisture);
+  //     setPostData(!postData);
+  //   }, 5000); // Send data every 45 minutes
 
-    return () => clearInterval(interval);
-  }, [postData]);
+  //   return () => clearInterval(interval);
+  // }, [postData]);
 
   const getMoistureData = () => {
     const moistureDataRef = ref(database, "moistureData");
