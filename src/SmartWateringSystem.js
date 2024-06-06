@@ -148,8 +148,11 @@ const SmartWateringSystem = () => {
       setChartData(formattedDailyAverages.map((d) => d.average));
       setHighest(highest);
       setLowest(lowest);
-      const earliestDate = formattedDailyAverages[0].date;
-      const latestDate = formattedDailyAverages[6].date;
+      console.log(formattedDailyAverages);
+      // const earliestDate = formattedDailyAverages[0].date || "";
+      // const latestDate = formattedDailyAverages[6].date || "";
+      const earliestDate = "";
+      const latestDate = "";
       setDateRange(`${earliestDate} - ${latestDate}`);
     }
   }, [data]);
