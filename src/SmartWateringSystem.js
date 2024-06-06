@@ -115,12 +115,10 @@ const SmartWateringSystem = () => {
         groupedByDate[date].length,
     }));
 
-    // Sort daily averages by date
     dailyAverages.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-    // Filter for the last 7 days
     const oneWeekAgo = new Date();
-    oneWeekAgo.setDate(oneWeekAgo.getDate() - 8); // 7 days + today
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 8);
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
 
@@ -153,9 +151,6 @@ const SmartWateringSystem = () => {
       const earliestDate = formattedDailyAverages[0].date;
       const latestDate = formattedDailyAverages[6].date;
       setDateRange(`${earliestDate} - ${latestDate}`);
-      console.log("Daily Averages:", formattedDailyAverages);
-      console.log("Highest:", highest);
-      console.log("Lowest:", lowest);
     }
   }, [data]);
 
