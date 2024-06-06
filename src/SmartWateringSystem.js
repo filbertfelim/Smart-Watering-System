@@ -390,7 +390,7 @@ const SmartWateringSystem = () => {
             boxShadow: "0 4px 10px rgba(0, 0, 0, 0.15)",
             width: "100%",
             maxWidth: { xs: "320px", sm: "500px" },
-            height: "410px",
+            height: { xs: "465px", sm: "410px" },
           }}
         >
           <div
@@ -401,6 +401,7 @@ const SmartWateringSystem = () => {
               justifyContent: "space-between",
               marginLeft: "10px",
               marginRight: "10px",
+              marginBottom: "12px",
             }}
           >
             <Typography style={{ fontSize: "22px", fontWeight: "700" }}>
@@ -420,20 +421,18 @@ const SmartWateringSystem = () => {
             xAxis={[{ scaleType: "point", data: labels, label: "Date" }]}
             series={[{ data: chartData, label: "Average Moisture Level" }]}
             height={300}
-            width={500}
           />
           <div style={{ marginLeft: "20px", marginTop: "10px" }}>
             <Typography style={{ fontSize: "18px" }}>
               <span style={{ color: "#828282", fontWeight: "500" }}>
                 Highest Level :
               </span>
-              <span style={{ color: "#00B5AD", fontWeight: "500" }}>
+              <span style={{ color: "#00B5AD", fontWeight: "700" }}>
                 {" "}
-                {highest.level}
+                {highest.level}%{" "}
               </span>
-              <span style={{ color: "#00B5AD", fontWeight: "700" }}>% </span>
-              <span style={{ fontWeight: "600" }}>on </span>
-              <span style={{ fontWeight: "500" }}>
+              <span style={{ fontWeight: "600" }}>
+                on{" "}
                 {new Date(highest.datetime).toLocaleString("en-US", {
                   timeZone: "Asia/Jakarta",
                   month: "short",
@@ -448,13 +447,12 @@ const SmartWateringSystem = () => {
               <span style={{ color: "#828282", fontWeight: "500" }}>
                 Lowest Level :
               </span>
-              <span style={{ color: "#00B5AD", fontWeight: "500" }}>
+              <span style={{ color: "#00B5AD", fontWeight: "700" }}>
                 {" "}
-                {lowest.level}
+                {lowest.level}%{" "}
               </span>
-              <span style={{ color: "#00B5AD", fontWeight: "700" }}>% </span>
-              <span style={{ fontWeight: "600" }}>on </span>
-              <span style={{ fontWeight: "500" }}>
+              <span style={{ fontWeight: "600" }}>
+                on{" "}
                 {new Date(lowest.datetime).toLocaleString("en-US", {
                   timeZone: "Asia/Jakarta",
                   month: "short",
