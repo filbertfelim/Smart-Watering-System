@@ -52,12 +52,5 @@ client.on("offline", () => {
 client.on("close", () => {
   console.log("Connection closed");
 });
-export const publishMessage = (topic, message) => {
-  client.publish(topic, message, (err) => {
-    if (err) {
-      console.error(`Failed to publish message: ${err.message}`);
-    }
-  });
-};
 
 export default client;
