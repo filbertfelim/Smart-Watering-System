@@ -44,17 +44,9 @@ const SmartWateringSystem = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      postMoistureToFirebase(moisture);
-      setPostData(!postData);
-    }, 5000); // Send data every 45 minutes
-
-    return () => clearInterval(interval);
-  }, [postData, moisture]);
-
   const postMoistureToFirebase = (moisture) => {
     if (moisture === null) {
+      console.log("No moisture");
       return;
     }
     const timestamp = new Date().toISOString();
@@ -76,19 +68,26 @@ const SmartWateringSystem = () => {
       });
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      postMoistureToFirebase(moisture);
+      setPostData(!postData);
+    }, 2700000); // Send data every 45 minutes
+
+    return () => clearInterval(interval);
+  }, [postData]);
+
   const getMoistureData = () => {
     const moistureDataRef = ref(database, "moistureData");
     onValue(
       moistureDataRef,
       (snapshot) => {
-        console.log("Snapshot received:", snapshot);
         if (snapshot.exists()) {
           const snapshotData = snapshot.val();
           const formattedData = Object.keys(snapshotData).map((key) => ({
             datetime: snapshotData[key].datetime,
             level: snapshotData[key].level,
           }));
-          console.log("Moisture history from Firebase:", formattedData);
           setData(formattedData);
         } else {
           console.log("No data available");
@@ -135,7 +134,17 @@ const SmartWateringSystem = () => {
   useEffect(() => {
     if (data) {
       const dailyAverages = calculateDailyAverages(data);
-      const formattedDailyAverages = dailyAverages.map((d) => ({
+      const oneWeekAgo = new Date();
+      oneWeekAgo.setDate(oneWeekAgo.getDate() - 8);
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const oneWeekData = data.filter(
+        (entry) =>
+          new Date(entry.datetime) > oneWeekAgo &&
+          new Date(entry.datetime) <= yesterday
+      );
+      var formattedDailyAverages = [];
+      formattedDailyAverages = dailyAverages.map((d) => ({
         ...d,
         date: new Date(d.date).toLocaleDateString("en-US", {
           timeZone: "Asia/Jakarta",
@@ -143,16 +152,17 @@ const SmartWateringSystem = () => {
           day: "numeric",
         }),
       }));
-      const { highest, lowest } = findHighestAndLowest(data);
+      const { highest, lowest } = findHighestAndLowest(oneWeekData);
       setLabels(formattedDailyAverages.map((d) => d.date));
       setChartData(formattedDailyAverages.map((d) => d.average));
+      var earliestDate = "";
+      var latestDate = "";
+      if (formattedDailyAverages.length > 0) {
+        earliestDate = formattedDailyAverages[0].date;
+        latestDate = formattedDailyAverages[6].date;
+      }
       setHighest(highest);
       setLowest(lowest);
-      console.log(formattedDailyAverages);
-      // const earliestDate = formattedDailyAverages[0].date || "";
-      // const latestDate = formattedDailyAverages[6].date || "";
-      const earliestDate = "";
-      const latestDate = "";
       setDateRange(`${earliestDate} - ${latestDate}`);
     }
   }, [data]);
