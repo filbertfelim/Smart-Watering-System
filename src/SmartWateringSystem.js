@@ -43,39 +43,6 @@ const SmartWateringSystem = () => {
     };
   }, []);
 
-  // const postMoistureToFirebase = (moisture) => {
-  //   if (moisture === null) {
-  //     console.log("No moisture");
-  //     return;
-  //   }
-  //   const timestamp = new Date().toISOString();
-
-  //   const dataRef = ref(database, "moistureData");
-  //   const newDataRef = push(dataRef);
-  //   set(newDataRef, {
-  //     datetime: timestamp,
-  //     level: moisture,
-  //   })
-  //     .then(() => {
-  //       console.log("Posted moisture data to Firebase:", {
-  //         datetime: timestamp,
-  //         level: moisture,
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error posting to Firebase:", error);
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     postMoistureToFirebase(moisture);
-  //     setPostData(!postData);
-  //   }, 5000); // Send data every 45 minutes
-
-  //   return () => clearInterval(interval);
-  // }, [postData]);
-
   const getMoistureData = () => {
     const moistureDataRef = ref(database, "moistureData");
     onValue(
