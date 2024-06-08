@@ -2,7 +2,7 @@
 Website Waterwise adalah website yang menyediakan sistem penyiraman otomatis dengan sensor kelembababan yang akan secara otomatis menyiram tanaman berdasarkan tingkat kelembaban tanah yang terdeteksi. Sistem ini akan menggunakan sensor utuk mengukur kelembaban dan mengirimkan data tersebut ke sistem kontrol. Berdasarkan data kelembaban ini, sistem akan mengaktifkan pompa air untuk menyiram tanaman jika kelembaban tanah berada di bawah tingkat yang telah ditentukan. 
 
 ## Anggota Kelompok
-Kelompok 11
+Kelompok 09
 | NIM | Nama |
 | ----- | ---- |
 | 18221073 | Jessica |
