@@ -119,13 +119,15 @@ const SmartWateringSystem = () => {
         }),
       }));
       const { highest, lowest } = findHighestAndLowest(oneWeekData);
+      console.log(formattedDailyAverages);
       setLabels(formattedDailyAverages.map((d) => d.date));
       setChartData(formattedDailyAverages.map((d) => d.average));
       var earliestDate = "";
       var latestDate = "";
       if (formattedDailyAverages.length > 0) {
         earliestDate = formattedDailyAverages[0].date;
-        latestDate = formattedDailyAverages[6].date;
+        latestDate =
+          formattedDailyAverages[formattedDailyAverages.length - 1].date;
       }
       setHighest(highest);
       setLowest(lowest);
